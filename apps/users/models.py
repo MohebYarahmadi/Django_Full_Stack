@@ -12,7 +12,7 @@ from django.http import Http404
 #   User Model
 # ================================
 class User(AbstractBaseUser, PermissionsMixin):
-    public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uudi4, editabel=False)
+    public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4, editable=False)
 
     username = models.CharField(max_length=255, db_index=True, unique=True)
     first_name = models.CharField(max_length=255)
@@ -21,12 +21,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_not_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
-    objects = UserManager()
+    objects = BaseUserManager()
 
     @property
     def name(self):
