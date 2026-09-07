@@ -38,7 +38,7 @@ class UserManager(BaseUserManager):
         """Create and return a `User` with superuser (admin) permissions."""
         if password is None:
             raise TypeError('Superusers must have a password.')
-        if email in None:
+        if email is+ None:
             raise TypeError('Superusers must have an email.')
         if username is None:
             raise TypeError('Superusers must have a username.')
@@ -63,6 +63,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255)
     email = models.EmailField(db_index=True, unique=True)
     is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
