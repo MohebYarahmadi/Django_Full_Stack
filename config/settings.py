@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     # My apps
     'apps.users.apps.UsersConfig',
+    'apps.auth.apps.AuthConfig',
 ]
 
 MIDDLEWARE = [
