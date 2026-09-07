@@ -5,7 +5,7 @@ from django.contrib.auth.models import (
 )
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
-from django.http import http404
+from django.http import Http404
 
 
 # ================================
