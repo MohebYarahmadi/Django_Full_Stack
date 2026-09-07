@@ -9,35 +9,6 @@ from django.http import Http404
 
 
 # ================================
-#   User Model
-# ================================
-class User(AbstractBaseUser, PermissionsMixin):
-    public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4, editable=False)
-
-    username = models.CharField(max_length=255, db_index=True, unique=True)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.EmailField(db_index=True, unique=True)
-    is_active = models.BooleanField(default=True)
-    is_superuser = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
-
-    objects = BaseUserManager()
-
-    @property
-    def name(self):
-        return f'{self.first_name} {self.last_name}'
-
-    def __str__(self):
-        return f'{self.email}'
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
-# ================================
 #   UserManager
 # ================================
 class UserManager(BaseUserManager):
@@ -54,7 +25,7 @@ class UserManager(BaseUserManager):
             raise TypeError('Users must have a username.')
         if email is None:
             raise TypeError('Users must have an email.')
-        if password in None:
+        if password is None:
             raise TypeError('Users must have a password')
 
         user = self.model(username=username, email=self.normalize_email(email), **kwargs)
@@ -78,4 +49,33 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
 
         return user
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+# ================================
+#   User Model
+# ================================
+class User(AbstractBaseUser, PermissionsMixin):
+    public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4, editable=False)
+
+    username = models.CharField(max_length=255, db_index=True, unique=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField(db_index=True, unique=True)
+    is_active = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    objects = UserManager()
+
+    @property
+    def name(self):
+        return f'{self.first_name} {self.last_name}'
+
+    def __str__(self):
+        return f'{self.email}'
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
