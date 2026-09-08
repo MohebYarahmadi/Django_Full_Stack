@@ -17,11 +17,14 @@ class RegisterSerializer(UserSerializer):
         model = User
         # List of all the fields that can be included in a request or response
         fields = [
-            'id', 'email', 'username',
-            'first_name', 'last_name',
-            'password',
+            "id",
+            "email",
+            "username",
+            "first_name",
+            "last_name",
+            "password",
         ]
 
-        def create(self, validated_data):
-            # Use the `create_user` method from `UserManager` to create a new user
-            return User.objects.create_user(**validated_data)
+    def create(self, validated_data):
+        # Use the `create_user` method from `UserManager` to create a new user
+        return User.objects.create_user(**validated_data)

@@ -10,8 +10,16 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name',
-            'last_name', 'email', 'is_active',
-            'created_at', 'updated_at'
+        # List of all the fields that can be included in a request or a response
+        fields = [
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "is_active",
+            "created_at",
+            "updated_at",
         ]
-        read_only_filed = ['is_active']
+        # List of all the fields that can only be read by the user
+        read_only_field = ["is_active"]
