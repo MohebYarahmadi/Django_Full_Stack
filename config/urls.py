@@ -5,7 +5,11 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
 from apps.users.viewsets import UserViewSet
-from apps.auth.viewsets import RegisterViewSet, LoginViewSet
+from apps.auth.viewsets import (
+    RegisterViewSet,
+    LoginViewSet,
+    RefreshViewSet,
+)
 
 
 router = DefaultRouter()
@@ -13,6 +17,7 @@ router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'auth/register', RegisterViewSet, basename='auth-register')
 router.register(r'auth/login', LoginViewSet, basename='auth-login')
+router.register(r'auth/refresh', RefreshViewSet, basename='auth-refresh')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
