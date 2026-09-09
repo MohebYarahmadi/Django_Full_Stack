@@ -21,7 +21,7 @@ class Post(AbstractModel):
     objects = PostManager()
 
     class Meta:
-        db_table = "'apps.posts'"
+        db_table = "apps.posts"
 
     def __str__(self):
         return f'{self.author.name}'
