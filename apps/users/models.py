@@ -68,6 +68,9 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
+    class Meta:
+        db_table = "apps.users"
+
     @property
     def name(self):
         return f'{self.first_name} {self.last_name}'
