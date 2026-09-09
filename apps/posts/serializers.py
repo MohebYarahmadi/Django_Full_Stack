@@ -24,6 +24,6 @@ class PostSerializer(AbstractSerializer):
 
     def validate_author(self, value):
         if self.context['request'].user != value:
-            reaise ValidationError("You can't create a post for another user.")
+            raise ValidationError("You can't create a post for another user.")
 
         return value
