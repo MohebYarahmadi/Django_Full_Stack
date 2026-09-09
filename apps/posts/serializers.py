@@ -2,8 +2,9 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from apps.abstracts.serializers import AbstractSerializer
-from apps.posts.models import Post
+from apps.users.serializers import UserSerializer
 from apps.users.models import User
+from apps.posts.models import Post
 
 
 class PostSerializer(AbstractSerializer):
@@ -27,3 +28,9 @@ class PostSerializer(AbstractSerializer):
             raise ValidationError("You can't create a post for another user.")
 
         return value
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        author = User.objects.get_object_by_public_id(rep['author'])
+        rep['author'] = UserSerializer(author).data
+        return rep
