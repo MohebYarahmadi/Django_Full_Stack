@@ -15,7 +15,7 @@ from apps.posts.viewsets import PostViewSet
 from apps.comments.viewsets import CommentViewSet
 
 
-router = DefaultRouter()
+router = routers.DefaultRouter()
 
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'auth/register', RegisterViewSet, basename='auth-register')
@@ -25,7 +25,7 @@ router.register(r'auth/refresh', RefreshViewSet, basename='auth-refresh')
 router.register(r'posts', PostViewSet, basename='post')
 
 # Nested Routers
-posts_router = routers.NestedSimpleRouter(router, r'post', lookup='post')
+posts_router = routers.NestedSimpleRouter(router, r'posts', lookup='post')
 posts_router.register(r'comments', CommentViewSet, basename='post-comment')
 
 
