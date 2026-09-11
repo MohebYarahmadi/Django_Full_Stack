@@ -33,7 +33,7 @@ class UserManager(BaseUserManager, AbstractManager):
         """Create and return a `User` with superuser (admin) permissions."""
         if password is None:
             raise TypeError('Superusers must have a password.')
-        if email is+ None:
+        if email is None:
             raise TypeError('Superusers must have an email.')
         if username is None:
             raise TypeError('Superusers must have a username.')
