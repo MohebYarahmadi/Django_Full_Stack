@@ -3,7 +3,7 @@ from apps.users.models import User
 
 
 data_user = {
-    'username': 'test_use',
+    'username': 'test_user',
     'email': 'test@gmail.com',
     'first_name': 'Test',
     'last_name': 'User',

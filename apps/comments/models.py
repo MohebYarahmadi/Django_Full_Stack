@@ -1,4 +1,5 @@
 from django.db import models
+# from django.db.models import UniqueConstraint
 
 from apps.abstracts.models import AbstractModel, AbstractManager
 
@@ -18,6 +19,11 @@ class Comment(AbstractModel):
 
     class Meta:
         db_table = "apps.comments"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["post", "author"], name="unique_post_per_author"
+            )
+        ]
 
     def __str__(self):
         return self.author.name
