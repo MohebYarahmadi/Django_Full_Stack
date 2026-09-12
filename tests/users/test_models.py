@@ -1,6 +1,5 @@
 import pytest
 from apps.users.models import User
-from apps.fixtures.users_fixture import user
 
 # get rid of using `@pytest.mark.django_db` decorator
 pytestmark = pytest.mark.django_db
