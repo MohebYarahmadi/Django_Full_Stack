@@ -9,7 +9,7 @@ class UserPermission(BasePermission):
         if view.basename in ["post"]:
             return bool(request.user and request.user.is_authenticated)
 
-        if view.basename in ["post-comment"]: # Delete comment permission
+        if view.basename in ["post-comment"]:
             if request.method in ["DELETE"]:
                 return bool(
                     request.user.is_superuser
