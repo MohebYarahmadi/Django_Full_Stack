@@ -1,6 +1,7 @@
 from rest_framework import status
 
-from apps.fixtures import user, post
+from apps.fixtures.users_fixture import user
+from apps.fixtures.posts_fixture import post
 
 
 class TestPostViewSet:
