@@ -4,6 +4,9 @@ from rest_framework import status
 from apps.fixtures import user
 
 
+pytestmark = pytest.mark.django_db
+
+
 class TestAuthenticaionViewSet:
     endpoint = '/api/auth/'
 
@@ -17,3 +20,16 @@ class TestAuthenticaionViewSet:
         assert response.data["user"]["id"] == user.public_id.hex
         assert response.data["user"]["username"] == user.username
         assert response.data["user"]["email"] == user.email
+
+    def test_register(self, client):
+        data = {
+            'username': 'johndoe',
+            'email': 'johndoe@gmail.com',
+            'password': 'test_password',
+            'first_name': 'John',
+            'last_name': 'Doe'
+        }
+
+        response = client.post(self.endpoint + 'register/', data)
+
+        assert response.status_code == status.HTTP_201_CREATED
