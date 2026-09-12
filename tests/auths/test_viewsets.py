@@ -1,7 +1,7 @@
 import pytest
 from rest_framework import status
 
-from apps.fixtures import user
+from apps.fixtures.users_fixture import user
 
 
 pytestmark = pytest.mark.django_db

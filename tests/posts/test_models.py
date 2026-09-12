@@ -1,6 +1,6 @@
 import pytest
 from apps.posts.models import Post
-from apps.fixtures import user
+from apps.fixtures.users_fixture import user
 
 pytestmark = pytest.mark.django_db
 
