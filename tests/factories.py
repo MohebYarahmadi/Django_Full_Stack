@@ -38,3 +38,39 @@ class UserFactory(factory.django.DjangoModelFactory):
     #         'first_name': data['first_name'],
     #         'last_name': data['last_name'],
     #     }
+
+
+class PostFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Post
+
+    author = factory.SubFactory(UserFactory)
+    body = 'Test Post Body'
+    edited = False
+
+    @classmethod
+    def create_post_kwargs(cls, **overrides):
+        post = cls.build(**overrides)
+        return {
+            'author': post.author,
+            'body': post.body,
+            'edited': post.edited
+        }
+
+
+class CommentFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Comment
+
+    author = factory.SubFactory(UserFactory)
+    post = factory.SubFactory(PostFactory)
+    body = 'Test Comment Body'
+
+    @classmethod
+    def create_comment_kwqrgs(cls, **overrides):
+        comment = cls.build(**overrides)
+        return {
+            'author': comment.author,
+            'post': comment.post,
+            'body': comment.body
+        }
