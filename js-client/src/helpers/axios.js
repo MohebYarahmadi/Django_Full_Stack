@@ -7,7 +7,7 @@ import {
 } from "../hooks/user.actions";
 
 const axiosService = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: "http://localhost:8000/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -34,7 +34,7 @@ const refreshAuthLogic = async (failedRequest) => {
         refresh: getRefreshToken(),
       },
       {
-        baseURL: process.env.REACT_APP_API_URL,
+        baseURL: "http://localhost:8000/api",
       }
     )
     .then((resp) => {
