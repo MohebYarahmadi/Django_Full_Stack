@@ -6,7 +6,7 @@ import { useUserActions } from "../../hooks/user.actions";
 function LoginForm() {
   const [validated, setValidated] = useState(false);
   const [form, setForm] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ function LoginForm() {
     setValidated(true);
 
     const data = {
-      email: form.email,
+      username: form.username,
       password: form.password,
     };
 
@@ -41,15 +41,17 @@ function LoginForm() {
       noValidate
       validated={validated}
       onSubmit={handleSubmit}
+      data-testid="login-form"
     >
       <Form.Group className="mb-3">
-        <Form.Label>email</Form.Label>
+        <Form.Label>Username</Form.Label>
         <Form.Control
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          value={form.username}
+          data-testid="username-field"
+          onChange={(e) => setForm({ ...form, username: e.target.value })}
           required
           type="text"
-          placeholder="Enter email"
+          placeholder="Enter username"
         />
         <Form.Control.Feedback type="invalid">
           This file is required.
@@ -60,6 +62,7 @@ function LoginForm() {
         <Form.Label>Password</Form.Label>
         <Form.Control
           value={form.password}
+          data-testid="password-field"
           minLength="8"
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           required
@@ -73,7 +76,11 @@ function LoginForm() {
 
       <div className="text-content text-danger">{error && <p>{error}</p>}</div>
 
-      <Button variant="primary" type="submit">
+      <Button
+        disabled={!form.password || !form.username}
+        variant="primary"
+        type="submit"
+      >
         Submit
       </Button>
     </Form>
