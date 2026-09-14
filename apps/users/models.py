@@ -11,6 +11,14 @@ from apps.abstracts.models import AbstractModel, AbstractManager
 
 
 # ================================
+#   User Directory Path
+# ================================
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'user_{0}/{1}'.format(instance_public_id, filename)
+
+
+# ================================
 #   UserManager
 # ================================
 class UserManager(BaseUserManager, AbstractManager):
@@ -56,8 +64,8 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255)
     email = models.EmailField(db_index=True, unique=True)
 
-    # bio = models.TextField(null=True)
-    # avatar = models.ImageField(null=True, blank=True, upload_to=user_directory_path)
+    bio = models.TextField(null=True)
+    avatar = models.ImageField(null=True, blank=True, upload_to=user_directory_path)
     posts_liked = models.ManyToManyField('apps_posts.Post', related_name='liked_by')
 
     is_active = models.BooleanField(default=True)

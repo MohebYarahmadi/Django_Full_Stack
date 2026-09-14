@@ -21,3 +21,15 @@ class UserSerializer(AbstractSerializer):
         ]
         # List of all the fields that can only be read by the user
         read_only_field = ["is_active"]
+
+        def to_representation(self, instance):
+            representation = super().to_representation(instance)
+            if not representation['avatar']:
+                representation['avatar'] = settings.DEFAULT_AUTO_FIELD
+                return representation
+            if settings.DEBUG == True:
+                request = self.context.get('request')
+                representation['avatar'] = request.build_absolute_uri(
+                    representation['avatar']
+                )
+                return representation
